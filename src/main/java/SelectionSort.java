@@ -12,31 +12,24 @@ public class SelectionSort extends SortingAlgorithm{
     public void startSorting() {
         new Thread(() -> {
             for (int i = 0; i < listSize - 1; i++) {
-                incrementCounterIf();
                 int minIndex = i;
                 highlightCursor(i);
                 for (int j = i + 1; j < listSize; j++) {
-                    incrementCounterIf();
                     highlightCompare(j, minIndex);
                     sleep();
 
-                    incrementCounterIf();
-                    incrementCounterGet(); incrementCounterGet();
-                    if (list.get(j) < list.get(minIndex)) {
+                    if (C.cif(C.cget(list, j) < C.cget(list, minIndex))) {
                         minIndex = j;
                     }
                 }
-                incrementCounterIf();
 
-                incrementCounterIf();
-                if (minIndex != i) {
+                if (C.cif(minIndex != i)) {
                     swap(i, minIndex);
                     sleep();
                 }
                 highlightClear();
                 highlightSorted(i);
             }
-            incrementCounterIf();
 
             highlightSorted(listSize - 1);
              Platform.runLater(() -> finishedLabel.setText("✅Algorytm SelectionSort zakończył działanie."));

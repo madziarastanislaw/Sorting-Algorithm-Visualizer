@@ -12,13 +12,12 @@ public class HeapSort extends SortingAlgorithm {
     public void startSorting() {
         new Thread(() -> {
 
-            for (int i = listSize / 2 - 1; i >= 0; i--) { incrementCounterIf();
+            for (int i = listSize / 2 - 1; i >= 0; i--) {
                 heapify(listSize, i);
                 sleep();
             }
-            incrementCounterIf();
 
-            for (int i = listSize - 1; i > 0; i--) { incrementCounterIf();
+            for (int i = listSize - 1; i > 0; i--) {
                 sleep();
                 highlightClear();
                 swap(0, i);
@@ -26,7 +25,6 @@ public class HeapSort extends SortingAlgorithm {
                 sleep();
                 heapify(i, 0);
             }
-            incrementCounterIf();
 
             highlightSorted(0);
             highlightClear();
@@ -40,28 +38,22 @@ public class HeapSort extends SortingAlgorithm {
         int right = 2 * rootIndex + 2;
 
         highlightCursor(rootIndex);
-        incrementCounterIf();
-        if (left < heapSize) {
+        if (C.cif(left < heapSize)) {
             highlightCompareLeft(left);
-            incrementCounterGet(); incrementCounterGet();
-            if (list.get(left) > list.get(largest)) { incrementCounterIf();
+            if (C.cif(C.cget(list, left) > C.cget(list, largest))) {
                 largest = left;
             }
         }
 
-        incrementCounterIf();
-        if (right < heapSize) {
+        if (C.cif(right < heapSize)) {
             highlightCompareRigth(right);
-            incrementCounterIf();
-            incrementCounterGet(); incrementCounterGet();
-            if (list.get(right) > list.get(largest)) {
+            if (C.cif(C.cget(list, right) > C.cget(list, largest))){
                 largest = right;
             }
 
         }
 
-        incrementCounterIf();
-        if (largest != rootIndex) {
+        if (C.cif(largest != rootIndex)) {
             sleep();
             swap(rootIndex, largest);
             sleep();

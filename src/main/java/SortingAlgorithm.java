@@ -13,8 +13,7 @@ public class SortingAlgorithm {
     protected final BarChartVisualizer visualizer;
     protected final Label finishedLabel;
     protected Label speedLabel;
-    protected int counterIf = 0;   
-    protected int counterGet = 0;
+    protected Counter C;
 
     protected final double[] speedSteps = {0.01, 0.05, 0.1, 0.5, 1, 2, 4, 10, 20, 50, 100, 250};
     protected int currentSpeedIndex = 2;
@@ -28,6 +27,7 @@ public class SortingAlgorithm {
         this.stepLabel = stepLabel;
         this.visualizer = visualizer;
         this.finishedLabel = finishedLabel;
+        this.C = new Counter(this);
     }
 
     public void setSpeedLabel(Label label) {
@@ -105,22 +105,13 @@ public class SortingAlgorithm {
             e.printStackTrace();
         }
     }
-    protected void incrementCounterIf() {
-    counterIf++;
-    updateStepLabels();
-}
 
-protected void incrementCounterGet() {
-    counterGet++;
-    updateStepLabels();
-}
-
-private void updateStepLabels() {
-    if (stepLabel != null) {
-        Platform.runLater(() -> {
-            stepLabel.setText("Porównania: " + counterIf + "    Dostępy: " + counterGet);
-        });
+    protected void updateStepLabels() {
+        if (stepLabel != null) {
+            Platform.runLater(() -> {
+                stepLabel.setText("Porównania: " + C.counterIf + "    Dostępy: " + C.counterGet);
+            });
+        }
     }
-}
 
 }

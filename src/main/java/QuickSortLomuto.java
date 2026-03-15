@@ -17,9 +17,8 @@ public class QuickSortLomuto extends SortingAlgorithm {
     }
 
     public void qsort(int left, int right) {
-        if (left == right) { highlightSorted(left); }
-        incrementCounterIf();
-        if (left < right) {
+        if (C.cif(left == right)) { highlightSorted(left); }
+        if (C.cif(left < right)) {
             int p = partitionLomuto(left, right);
             qsort(left, p - 1);
             qsort(p + 1, right);
@@ -27,25 +26,21 @@ public class QuickSortLomuto extends SortingAlgorithm {
     }
 
     protected int partitionLomuto(int left, int right) {
-        int pivotValue = list.get(right); incrementCounterGet();
+        int pivotValue = C.cget(list, right);
         int i = left - 1;
         highlightCursor(right);
 
         for (int j = left; j < right; j++) {
-            incrementCounterIf();
             sleep();
             highlightCompare(i, j);
 
-            incrementCounterIf();
-            incrementCounterGet();
-            if (list.get(j) <= pivotValue) {
+            if (C.cif(C.cget(list, j) <= pivotValue)) {
                 sleep();
                 i++;
                 highlightCompare(i, j);
                 swap(i, j);
             }
         }
-        incrementCounterIf();
         sleep();
         swap(i + 1, right);
         highlightClear();

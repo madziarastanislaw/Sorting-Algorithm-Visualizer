@@ -17,47 +17,37 @@ public class QuickSortHoare extends SortingAlgorithm {
     }
 
     public void qsort(int left, int right){
-        incrementCounterIf();
-        if (left < right) {
+        if (C.cif(left < right)) {
             int partitionIndex = partitionHoare(left, right);
             qsort(left, partitionIndex);
             qsort(partitionIndex + 1, right);
         }
-        if (left == right) { highlightSorted(left); }
+        if (C.cif(left == right)) { highlightSorted(left); }
     }
 
     protected int partitionHoare(int left, int right) {
         highlightClear();
         int pivot = (left + right) / 2;
-        int pivotValue = list.get(pivot); incrementCounterGet();
+        int pivotValue = C.cget(list, pivot);
         int l = left;
         int r = right;
 
         highlightCursor(pivot);
         highlightCompare(l, r);
         while (true) {
-            while (list.get(l) < pivotValue){
-                incrementCounterIf();
-                incrementCounterGet();
+            while (C.cget(list, l) < pivotValue){
                 l++;
                 sleep();
                 highlightCompare(l, r);
             }
-            incrementCounterIf();
-            incrementCounterGet();
 
-            while (list.get(r) > pivotValue){
-                incrementCounterIf();
-                incrementCounterGet();
+            while (C.cget(list, r) > pivotValue){
                 r--;
                 sleep();
                 highlightCompare(l, r);
             }
-            incrementCounterIf();
-            incrementCounterGet();
 
-            incrementCounterIf();
-            if (l >= r) {
+            if (C.cif(l >= r)) {
                 highlightClear();
                 return r;
             }

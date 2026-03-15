@@ -12,29 +12,24 @@ public class InsertionSort extends SortingAlgorithm {
     public void startSorting() {
         new Thread(() -> {
             visualizer.addSorted(0);
-            for (int i = 1; i < listSize; i++) { incrementCounterIf();
+            for (int i = 1; i < listSize; i++) {
                 highlightCursor(i);
-                int key = list.get(i); incrementCounterGet();
+                int key = C.cget(list, i);
                 int j = i - 1;
                 highlightCompare(j, -1);
-                while (j >= 0 && list.get(j) > key) {
-                    incrementCounterIf(); incrementCounterIf();
-                    incrementCounterGet();
+                while (j >= 0 && C.cget(list, j) > key) {
                     sleep();
                     highlightCompare(j, -1);
                     sleep();
-                    set(j + 1, list.get(j));
+                    set(j + 1, C.cget(list, j));
                     j--;
                 }
-                if (j >= 0) { incrementCounterIf(); incrementCounterGet(); }
-                incrementCounterIf();
                 sleep();
                 set(j + 1, key);
                 highlightCompare(j + 1, i);
                 sleep();
                 highlightSorted(i);
             }
-            incrementCounterIf();
             highlightClear();
             Platform.runLater(() -> finishedLabel.setText("✅Algorytm InsertionSort zakończył działanie."));
         }).start();

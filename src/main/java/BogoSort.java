@@ -17,11 +17,9 @@ public class BogoSort extends SortingAlgorithm {
     public void startSorting() {
         new Thread(() -> {
             while (!isSorted()) {
-                incrementCounterIf();
                 shuffleList();
                 sleep();
             }
-            incrementCounterIf();
 
             for (int i = 0; i < listSize; i++){
                 highlightSorted(i);
@@ -33,14 +31,11 @@ public class BogoSort extends SortingAlgorithm {
     }
 
     private boolean isSorted() {
-        for (int i = 0; i < list.size() - 1; i++) { incrementCounterIf();
-            incrementCounterIf();
-            incrementCounterGet();incrementCounterGet();
-            if (list.get(i) > list.get(i + 1)) {
+        for (int i = 0; i < list.size() - 1; i++) {
+            if (C.cif(C.cget(list, i) > C.cget(list, i + 1))) {
                 return false;
             }
         }
-        incrementCounterIf();
         return true;
     }
 

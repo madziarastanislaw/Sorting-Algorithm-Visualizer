@@ -1,12 +1,13 @@
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
-
+import javafx.collections.FXCollections;
 import java.util.ArrayList;
 
 public class MergeSort extends SortingAlgorithm {
 
-    private final ArrayList<Integer> copyList = new ArrayList<>();
+    private final ArrayList<Integer> array = new ArrayList<>();
+    private final ObservableList<Integer> copyList = FXCollections.observableList(array);
 
     public MergeSort(ObservableList<Integer> list, int baseDelayMillis,
                     Label stepLabel, BarChartVisualizer visualizer, Label finishedLabel) {
@@ -17,7 +18,7 @@ public class MergeSort extends SortingAlgorithm {
         new Thread(() -> {
 
             copyList.addAll(list);
-            for (int i = 0; i < listSize; i++) { incrementCounterGet(); }
+            //for (int i = 0; i < listSize; i++) {}
 
             mergeSort(0, listSize - 1);
             highlightClear();
@@ -35,60 +36,44 @@ public class MergeSort extends SortingAlgorithm {
         int lengthRight = right - mid;
         highlightCursor(k);
         while (l < lengthLeft && r < lengthRight){
-            incrementCounterIf(); incrementCounterIf();
             highlightCursor(k);
             sleep();
-            incrementCounterGet();incrementCounterGet();
-            incrementCounterIf();
-            if (copyList.get(left + l) < copyList.get(mid + 1 + r)){
+            if (C.cif(C.cget(copyList, left + l) < copyList.get(mid + 1 + r))){
                 list.set(k++, copyList.get(left + l));
                 l++;
             } else {
-                list.set(k++, copyList.get(mid + 1 + r));
-                incrementCounterGet();
+                list.set(k++, C.cget(copyList, mid + 1 + r));
                 r++;
             }
             sleep();
             highlightSorted(k-1);
         }
-        if (l < lengthLeft) { incrementCounterIf(); }
-        incrementCounterIf();
 
         while (l < lengthLeft){
-            incrementCounterIf();
             highlightCursor(k);
             sleep();
-            list.set(k++, copyList.get(left + l));
-            incrementCounterGet();
+            list.set(k++, C.cget(copyList, left + l));
             l++;
             sleep();
             highlightSorted(k-1);
         }
-        incrementCounterIf();
 
         while (r < lengthRight){
-            incrementCounterIf();
             highlightCursor(k);
             sleep();
-            list.set(k++, copyList.get(mid + 1 + r));
-            incrementCounterGet();
+            list.set(k++, C.cget(copyList, mid + 1 + r));
             r++;
             sleep();
             highlightSorted(k-1);
         }
-        incrementCounterIf();
 
         for (int i = left; i <= right; i++){
-            copyList.set(i, list.get(i));
-            incrementCounterIf();
-            incrementCounterGet();
+            copyList.set(i, C.cget(list, i));
         }
-        incrementCounterIf();
     }
 
     private void mergeSort(int left, int right){
-        incrementCounterIf();
-        if (left < right) {
+        if (C.cif(left < right)) {
             int mid = (left + right) / 2;
             mergeSort(left, mid);
             mergeSort(mid + 1, right);
